@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Splash Screen</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #004080, #00bfff); /* Calm gradient */
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    img {
+      width: 180px;
+      margin-bottom: 20px;
+      animation: pulse 3s infinite;
+    }
+
+    h2 {
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-top: 10px;
+      animation: slideUp 2s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(255,255,255,0.7)); }
+      100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Optional loading indicator */
+    .loading {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="silvertech_logo.png" alt="Silvertech Logo">
+    <h2>Powered by Silvertech Electrical</h2>
+    <p class="loading">Loading RehabApp...</p>
+  </div>
+</body>
+</html>

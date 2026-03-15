@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RehabApp - Rehabilitation Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/silvertech_logo.png">
+</head>
+<body>
+  <div id="app">
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen hidden">
+      <img src="assets/splash_screen.png" alt="RehabApp Splash" class="splash-image">
+      <h1>RehabApp</h1>
+      <p>Rehabilitation Management System</p>
+    </div>
+
+    <!-- Main Application -->
+    <div id="main-app" class="main-app">
+      <!-- Navbar -->
+      <nav class="navbar">
+        <div class="navbar-brand">
+          <img src="assets/silvertech_logo.png" alt="SilverTech Logo" class="logo">
+          <span class="brand-name">RehabApp</span>
+        </div>
+        <div class="navbar-center">
+          <span class="user-role" id="user-role-display"></span>
+          <span class="user-name" id="user-name-display"></span>
+        </div>
+        <div class="navbar-right">
+          <!-- Coping Wellness button acts as the nav menu trigger -->
+          <button id="coping-wellness-btn" class="coping-wellness-btn">☰ Menu</button>
+          <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
+      </nav>
+
+      <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <h3>Navigation</h3>
+          </div>
+          <ul class="sidebar-menu">
+            <li><a href="#dashboard" class="menu-item" data-role="all">Dashboard</a></li>
+            <li><a href="#patients" class="menu-item" data-role="doctor,admin,reception">Patient Management</a></li>
+            <li><a href="#staff" class="menu-item" data-role="admin">Staff Management</a></li>
+            <li><a href="#finance" class="menu-item" data-role="admin,finance">Billing & Finance</a></li>
+            <li><a href="#reports" class="menu-item" data-role="admin,finance">Reports & Analytics</a></li>
+            <li><a href="#appointments" class="menu-item" data-role="doctor,admin,reception">Appointments</a></li>
+            <li><a href="#settings" class="menu-item" data-role="admin">Settings</a></li>
+          </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+          <div id="content-area">
+            <!-- Content will be rendered here -->
+            <div class="dashboard">
+              <h1>Dashboard</h1>
+              <div class="dashboard-grid">
+                <div class="widget">
+                  <h3>Total Patients</h3>
+                  <p class="metric" id="total-patients">0</p>
+                </div>
+                <div class="widget">
+                  <h3>Active Staff</h3>
+                  <p class="metric" id="active-staff">0</p>
+                </div>
+                <div class="widget">
+                  <h3>Pending Invoices</h3>
+                  <p class="metric" id="pending-invoices">0</p>
+                </div>
+                <div class="widget">
+                  <h3>Revenue</h3>
+                  <p class="metric" id="total-revenue">$0.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Password Authentication Modal -->
+    <div id="password-modal" class="modal">
+      <div class="modal-content password-modal-content">
+        <div class="modal-header">
+          <h2>Access Required</h2>
+          <button id="close-password-modal" class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Enter password to access the menu:</p>
+          <input type="password" id="password-input" class="form-input" placeholder="Enter password" autofocus>
+          <div id="password-error" class="error-message hidden"></div>
+          <button id="password-submit-btn" class="submit-btn password-submit-btn">Enter</button>
+          <button id="password-admin-btn" class="submit-btn password-admin-btn">Admin: Add Staff</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Staff Registration Modal -->
+    <div id="admin-staff-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Add New Staff Member</h2>
+          <button id="close-admin-modal" class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Full Name:</label>
+            <input type="text" id="staff-fullname" class="form-input" placeholder="Enter full name">
+          </div>
+          <div class="form-group">
+            <label>Username:</label>
+            <input type="text" id="staff-username" class="form-input" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="staff-password" class="form-input" placeholder="Enter password">
+          </div>
+          <div class="form-group">
+            <label>Role:</label>
+            <select id="staff-role" class="form-input" title="Select staff role">
+              <option value="">Select Role</option>
+              <option value="doctor">Doctor</option>
+              <option value="finance">Finance</option>
+              <option value="reception">Reception</option>
+              <option value="therapist">Therapist</option>
+            </select>
+          </div>
+          <div id="admin-error" class="error-message hidden"></div>
+          <div id="admin-success" class="success-message hidden"></div>
+          <button id="staff-submit-btn" class="submit-btn">Add Staff Member</button>
+          <button id="staff-list-btn" class="submit-btn staff-list-btn">View All Staff</button>
+          <div id="staff-list" class="staff-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coping Wellness Modal -->
+    <div id="coping-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Coping Wellness - Navigation</h2>
+          <button id="close-modal" class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="options-grid">
+            <div class="option-card" data-target="dashboard">
+              <div class="option-icon">📊</div>
+              <h3>Dashboard</h3>
+              <p>View system metrics and overview</p>
+            </div>
+            <div class="option-card" data-target="patients">
+              <div class="option-icon">👥</div>
+              <h3>Patient Management</h3>
+              <p>Manage patient records</p>
+            </div>
+            <div class="option-card" data-target="staff">
+              <div class="option-icon">👔</div>
+              <h3>Staff Management</h3>
+              <p>Manage staff information</p>
+            </div>
+            <div class="option-card" data-target="finance">
+              <div class="option-icon">💰</div>
+              <h3>Billing & Finance</h3>
+              <p>Invoice and payment tracking</p>
+            </div>
+            <div class="option-card" data-target="reports">
+              <div class="option-icon">📈</div>
+              <h3>Reports & Analytics</h3>
+              <p>Generate reports and insights</p>
+            </div>
+            <div class="option-card" data-target="settings">
+              <div class="option-icon">⚙️</div>
+              <h3>Settings</h3>
+              <p>Configure application settings</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="src/auth/authManager.js"></script>
+  <script src="src/auth/passwordAuthManager.js"></script>
+  <script src="src/utils/databaseManager.js"></script>
+  <script src="src/utils/dbConnector.js"></script>
+  <script src="src/utils/themeLoader.js"></script>
+  <script src="src/models/patientModel.js"></script>
+  <script src="src/models/staffModel.js"></script>
+  <script src="src/models/financeModel.js"></script>
+  <script src="src/auth/authController.js"></script>
+  <script src="src/patients/patientController.js"></script>
+  <script src="src/staff/staffController.js"></script>
+  <script src="src/finance/financeController.js"></script>
+  <script src="src/reports/reportController.js"></script>
+  <script src="src/components/Navbar.js"></script>
+  <script src="src/components/Sidebar.js"></script>
+  <script src="src/components/Dashboard.js"></script>
+  <script src="src/services/billingService.js"></script>
+  <script src="src/services/reportService.js"></script>
+  <script src="src/services/appointmentService.js"></script>
+  <script src="src/services/patientAdmissionService.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

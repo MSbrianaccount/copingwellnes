@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RehabApp - Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1976d2 0%, #dc004e 100%);
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: white;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-header img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+
+    .login-header h1 {
+      font-size: 28px;
+      color: #1976d2;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-header p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #1976d2;
+      box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-button:hover {
+      background-color: #1565c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #dc004e;
+      font-size: 14px;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background-color: rgba(220, 0, 78, 0.1);
+      border-radius: 4px;
+      display: none;
+    }
+
+    .demo-credentials {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 2rem;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .demo-credentials strong {
+      color: #333;
+    }
+
+    .demo-credentials p {
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-credentials p:last-child {
+      margin-bottom: 0;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      color: #1976d2;
+      margin-top: 1rem;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #1976d2;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 0.5rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <img src="silvertech_logo.png" alt="RehabApp Logo" onerror="this.style.display='none'">
+      <h1>RehabApp</h1>
+      <p>Rehabilitation Management System</p>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="role">Select Role</label>
+        <select id="role" name="role" required>
+          <option value="">-- Choose your role --</option>
+          <option value="admin">Admin</option>
+          <option value="doctor">Doctor</option>
+          <option value="finance">Finance Staff</option>
+          <option value="reception">Reception</option>
+          <option value="therapist">Therapist</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <button type="submit" class="login-button">Login</button>
+
+      <div class="error-message" id="error-message"></div>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Logging in...</p>
+      </div>
+
+      <div class="demo-credentials">
+        <strong>Demo Credentials:</strong>
+        <p><strong>Admin:</strong> admin / admin123</p>
+        <p><strong>Doctor:</strong> doctor1 / doctor123</p>
+        <p><strong>Finance:</strong> finance1 / finance123</p>
+        <p><strong>Reception:</strong> reception1 / reception123</p>
+      </div>
+    </form>
+  </div>
+
+  <script src="src/auth/authController.js"></script>
+  <script src="src/auth/authManager.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const role = document.getElementById('role').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('error-message');
+      const loading = document.getElementById('loading');
+
+      // Clear previous error
+      errorMessage.style.display = 'none';
+      loading.style.display = 'block';
+
+      // Simulate login delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      const result = AuthManager.login(role, username, password);
+      
+      if (result.success) {
+        loading.style.display = 'none';
+        // Redirect to main app
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 300);
+      } else {
+        loading.style.display = 'none';
+        errorMessage.textContent = result.message;
+        errorMessage.style.display = 'block';
+      }
+    });
+
+    // Check if already logged in
+    if (AuthManager.isLoggedIn()) {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
